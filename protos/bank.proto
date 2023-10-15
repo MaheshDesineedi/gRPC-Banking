@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message BankRequest {
+    string interface = 1;
+    int32 money = 2;
+}
+
+message BankResponse {
+    string result = 1;
+    int32 balance = 2;
+}
+
+service Bank {
+    rpc MsgDelivery(BankRequest) returns (BankResponse) {}
+}
