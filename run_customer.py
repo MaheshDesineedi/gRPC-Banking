@@ -27,8 +27,6 @@ def main():
             events = input["events"]
 
             event_results = execute_customer_events(id, events)
-            # #wait for results to propagate
-            # time.sleep(5000)
 
             res_json = dict()
             res_json["id"] = id
@@ -38,6 +36,12 @@ def main():
 
     for res in result_json:
         print(res)
+
+    # write to file
+    with open(r'./output/output.json', 'w') as fp:
+        fp.write('[')
+        fp.write(','.join(str(res).replace("\'", "\"") for res in result_json))
+        fp.write(']')
 
 
 if __name__ == "__main__":
