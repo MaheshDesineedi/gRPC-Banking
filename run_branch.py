@@ -3,12 +3,6 @@ import sys
 import os
 import signal
 import subprocess
-import multiprocessing
-
-
-def start_branch_server(id, branch_balance, branches):
-    # process_id = os.getpid()
-    exec(open("Branch.py", 'r').read(), {"id": id, "balance": branch_balance, "branches": branches}, {})
 
 
 def term(sig, frame):
@@ -27,6 +21,8 @@ def term(sig, frame):
     create a child process for Branch.py
     Branch.py is responsible to create the server on port
 """
+
+
 def main():
     # parse input json
     with open(sys.argv[1], 'r') as f:
@@ -63,9 +59,6 @@ def main():
 
             try:
                 worker = subprocess.Popen(["python", "Branch.py", str({"id": id, "balance": branch_balance, "branches": branches}).replace(" ", "")])
-
-                # worker = multiprocessing.Process(target=start_branch_server, args=(id, branch_balance, branches))
-                # worker.start()
                 workers.append(worker)
 
             except Exception as e:
