@@ -26,14 +26,6 @@ class Branch(bank_pb2_grpc.BankServicer):
             stub = bank_pb2_grpc.BankStub(channel)
             self.stubList.append(stub)
 
-    # Helper method. Not an RPC method
-    def propogate(self, interface, money):
-        for stub in self.stubList:
-            response = stub.MsgDelivery(bank_pb2.BankRequest(interface=interface, money=money))
-
-            if(response.result == "failed"):
-                print(f"{interface} failed from Branch ID: {self.id}")
-
     # RPC method to handle Customer and Branch requests
     def MsgDelivery(self, request, context):
 
